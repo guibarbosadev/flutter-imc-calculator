@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imc_calculator/models/imc.dart';
+import 'colors.dart';
 
 class ImcCalculator extends StatefulWidget {
   @override
@@ -7,22 +8,21 @@ class ImcCalculator extends StatefulWidget {
 }
 
 class _ImcCalculatorState extends State<ImcCalculator> {
-  Widget _buildTextfield(String controllerText, String suffixText) {
+  Widget _buildTextfield(String labelText, String suffixText) {
     return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Theme(
-                    data: Theme.of(context).copyWith(primaryColor: Colors.blue),
-                    child: TextField(
-                      controller: TextEditingController(
-                        text: controllerText
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        suffixText: suffixText,
-                      ),
-                    ),
-                  ),
-                );
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      child: Theme(
+        data: Theme.of(context)
+            .copyWith(primaryColor: Colors.black, hintColor: kShrineBrown),
+        child: TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            suffixText: suffixText,
+            labelText: labelText
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -40,23 +40,24 @@ class _ImcCalculatorState extends State<ImcCalculator> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Calculadora de IMC'),
-        ),
-        body: Container(
+      appBar: AppBar(
+        title: Text('Calculadora de IMC'),
+      ),
+      body: Container(
           padding: EdgeInsets.all(20.0),
           width: double.infinity,
           height: double.infinity,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                logo,
-                SingleChildScrollView(
-                  child:_buildTextfield('Altura', 'cm') ,)
-                ,
-                _buildTextfield('Massa', 'kg'),
-
-              ]),
-        ));
+          child: ListView(
+            children: [
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    logo,
+                    _buildTextfield('Altura', 'cm'),
+                    _buildTextfield('Massa', 'kg'),
+                  ])
+            ],
+          )),
+    );
   }
 }
